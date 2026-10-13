@@ -1,0 +1,7 @@
+func_timeout
+pandas
+requests
+omegaconf
+
+[dev]
+pytest
