@@ -1,0 +1,57 @@
+hydra:
+  searchpath:
+    - file://verl/trainer/config
+
+defaults:
+  - ppo_trainer
+  - _self_
+
+data:
+  gen_batch_size: ${data.train_batch_size}
+
+reward_model:
+  reward_manager: episode
+  overlong_buffer:
+    enable: False
+    len: 0
+    penalty_factor: 0.0
+    log: False
+
+algorithm:
+  adv_estimator: graft
+  gamma: 0.99  # small gamma suited for graph-distance-based returns
+  graft:
+    step_advantage_w: 1.0
+    episode_advantage_w: 0.0
+    mode: "mean_std_norm"  # "mean_norm" or "mean_std_norm"
+    advantage_norm_scope: "node"
+    enable_similarity: False  # whether to merge similar observations into one graph node
+    similarity_thresh: 0.95   # similarity threshold (0.0, 1.0), used when enable_similarity=True
+    normalize_distance: False  # if True, use distance delta instead of absolute distance
+    value_based: False
+    bellman_mode: "action_level"
+    bellman_tol: 1.0e-8
+    bellman_max_iters: 500
+    gae_mode: "none"
+    gae_lambda: 0.95
+    # ─────────────── Graph data saving (for visualization) ────────────────
+    # Save graph nodes/edges/V-values to JSON every N training steps.
+    # 0 means disabled. Files are written to:
+    #   <graph_save_dir>/step_<N>.json
+    # If graph_save_dir is empty, defaults to <trainer.default_local_dir>/graph_data/
+    graph_save_freq: 0
+    graph_save_dir: ""
+  filter_groups:
+    enable: False
+    metric: null
+    max_num_gen_batches: 0
+
+env:
+  webshop:
+    observation_mode: text_rich
+
+trainer:
+  project_name: verl-graft
+  val_out: False
+  val_only: False
+  test_only: False
