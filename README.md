@@ -208,6 +208,19 @@ Quick interactive viewer that prints all tasks in a batch and saves a PNG graph 
 python -m recipe.graft.visualize_task <step_N.json> [uid_or_index]
 ```
 
+## Citation
+
+If you find this work helpful, please cite us.
+
+```bibtex
+@article{yao2026graft,
+  title = {Back to the Definition: Estimating Step-Level Advantages via Trajectory Graphs for Agentic Reinforcement Learning},
+  author = {Xincheng Yao and Haobo Fu and Weiming Liu and Chongyang Zhang},
+  journal = {arXiv preprint arXiv:2609.28963},
+  year = {2026},
+}
+```
+
 ## Acknowledge
 
 Codes implementations are based on [verl-agent](https://github.com/langfengQ/verl-agent). Thanks for their great contributions!
